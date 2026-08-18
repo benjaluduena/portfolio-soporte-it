@@ -4,6 +4,8 @@ Portafolio profesional orientado a búsquedas de **Soporte IT, Help Desk, Servic
 
 La pieza principal es un carrusel de diez páginas para LinkedIn. El repositorio también incluye una copia reproducible de **SoporteLab**, un laboratorio personal de mesa de ayuda construido con datos completamente ficticios.
 
+[![Vista previa del portafolio de Soporte IT](dist/contact-sheet.png)](https://benjaluduena.github.io/portfolio-soporte-it/)
+
 ## Entregables listos
 
 - [Ver el portafolio interactivo](https://benjaluduena.github.io/portfolio-soporte-it/)
