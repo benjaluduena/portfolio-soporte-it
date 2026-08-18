@@ -17,7 +17,7 @@ La pieza principal es un carrusel de diez páginas para LinkedIn. El repositorio
 
 ## Ver el portafolio
 
-Abrir [`index.html`](index.html) en Chrome o Edge. Las flechas del teclado permiten recorrer las páginas.
+Abrir [`index.html`](index.html) en Chrome o Edge. El visor ajusta cada página completa al espacio disponible, sin scroll vertical, y las flechas del teclado permiten recorrerlas.
 
 Para generar todos los entregables en Windows PowerShell:
 
