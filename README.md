@@ -4,6 +4,14 @@ Portafolio profesional orientado a búsquedas de **Soporte IT, Help Desk, Servic
 
 La pieza principal es un carrusel de diez páginas para LinkedIn. El repositorio también incluye una copia reproducible de **SoporteLab**, un laboratorio personal de mesa de ayuda construido con datos completamente ficticios.
 
+## Entregables listos
+
+- [Portafolio PDF para LinkedIn](dist/Benjamin_Luduena_Portafolio_Soporte_IT.pdf)
+- [Video demostrativo de 68 segundos](dist/Benjamin_Luduena_Demo_SoporteLab.mp4)
+- [Vista previa de las diez páginas](dist/contact-sheet.png)
+- [Texto de publicación](publicacion/publicacion-linkedin.md)
+- [Contenido para el perfil](publicacion/perfil-linkedin.md)
+
 ## Ver el portafolio
 
 Abrir [`index.html`](index.html) en Chrome o Edge. Las flechas del teclado permiten recorrer las páginas.
@@ -67,6 +75,7 @@ Consultar [`soportelab/README.md`](soportelab/README.md) para la instalación lo
 
 - LinkedIn: <https://linkedin.com/in/benjamin-lud-luq>
 - GitHub: <https://github.com/benjaluduena>
+- Repositorio: <https://github.com/benjaluduena/portfolio-soporte-it>
 - Email: <benjaminludluq@gmail.com>
 
 ## Licencia
