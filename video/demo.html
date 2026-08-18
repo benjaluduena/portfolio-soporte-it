@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo de SoporteLab — Benjamin Ludueña</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <main class="video-canvas">
+    <section class="scene scene-intro" data-scene="1">
+      <div class="grid"></div>
+      <div class="brand">BL <span>PORTAFOLIO DE SOPORTE IT</span></div>
+      <div class="intro-copy">
+        <p>LABORATORIO PERSONAL · DATOS FICTICIOS</p>
+        <h1>SoporteLab</h1>
+        <h2>Resolver. Documentar. Prevenir.</h2>
+        <div class="intro-line"></div>
+        <strong>Benjamin Ludueña</strong>
+        <span>Soporte IT · Help Desk</span>
+      </div>
+    </section>
+
+    <section class="scene scene-split" data-scene="2">
+      <div class="scene-copy">
+        <p class="eyebrow">01 · PRIORIZAR</p>
+        <h2>Ver primero<br><em>lo que requiere atención.</em></h2>
+        <p class="lead">El panel organiza tickets por prioridad, estado y vencimiento para entender el impacto antes de intervenir.</p>
+        <div class="caption-chip">Dashboard · métricas simuladas</div>
+      </div>
+      <figure><img src="../assets/screenshots/dashboard.png" alt="Panel de SoporteLab"></figure>
+    </section>
+
+    <section class="scene scene-split scene-reverse" data-scene="3">
+      <figure><img src="../assets/screenshots/ticket-detail.png" alt="Detalle de un incidente simulado"></figure>
+      <div class="scene-copy">
+        <p class="eyebrow">02 · REUNIR EVIDENCIA</p>
+        <h2>Conectar el reporte<br><em>con su contexto.</em></h2>
+        <p class="lead">Cada caso conserva prioridad, responsable, SLA, activo afectado y un historial claro de actividades.</p>
+        <div class="caption-chip">Incidente simulado · pantalla azul</div>
+      </div>
+    </section>
+
+    <section class="scene scene-process" data-scene="4">
+      <div class="process-heading"><p class="eyebrow">03 · TRABAJAR CON MÉTODO</p><h2>De un síntoma a una decisión respaldada.</h2></div>
+      <div class="process-row">
+        <article><span>01</span><b>Recibir</b><p>Confirmar qué ocurre.</p></article>
+        <i>→</i>
+        <article><span>02</span><b>Priorizar</b><p>Impacto y urgencia.</p></article>
+        <i>→</i>
+        <article><span>03</span><b>Diagnosticar</b><p>Datos antes que supuestos.</p></article>
+        <i>→</i>
+        <article><span>04</span><b>Resolver o escalar</b><p>Dentro del alcance autorizado.</p></article>
+        <i>→</i>
+        <article><span>05</span><b>Validar</b><p>Confirmar el servicio.</p></article>
+        <i>→</i>
+        <article class="accent"><span>06</span><b>Documentar</b><p>Dejar conocimiento útil.</p></article>
+      </div>
+      <blockquote>Antes de cambiar una configuración, entender qué funciona, qué falla y qué evidencia sostiene la hipótesis.</blockquote>
+    </section>
+
+    <section class="scene scene-split" data-scene="5">
+      <div class="scene-copy">
+        <p class="eyebrow">04 · VINCULAR ACTIVOS</p>
+        <h2>El incidente no existe<br><em>aislado del equipo.</em></h2>
+        <p class="lead">SoporteLab relaciona usuarios, equipos, estado, sistema operativo y actividades para conservar trazabilidad.</p>
+        <div class="caption-chip">Inventario educativo · 12 activos ficticios</div>
+      </div>
+      <figure><img src="../assets/screenshots/tickets.png" alt="Listado de tickets de SoporteLab"></figure>
+    </section>
+
+    <section class="scene scene-split scene-reverse" data-scene="6">
+      <figure><img src="../assets/screenshots/knowledge.png" alt="Base de conocimientos de SoporteLab"></figure>
+      <div class="scene-copy">
+        <p class="eyebrow">05 · PREVENIR</p>
+        <h2>Una solución documentada<br><em>se puede reutilizar.</em></h2>
+        <p class="lead">Diagnóstico, causa raíz y resolución se transforman en procedimientos claros para futuros casos.</p>
+        <div class="caption-chip">Base de conocimiento · datos ficticios</div>
+      </div>
+    </section>
+
+    <section class="scene scene-final" data-scene="7">
+      <div class="grid"></div>
+      <div class="final-copy">
+        <p>BUSCO OPORTUNIDADES EN</p>
+        <h2>Soporte IT · Help Desk<br>Service Desk · Operaciones IT</h2>
+        <div class="contact-line">
+          <strong>Benjamin Ludueña</strong>
+          <span>linkedin.com/in/benjamin-lud-luq</span>
+          <span>github.com/benjaluduena</span>
+        </div>
+        <div class="final-words"><span>Resolver.</span><span>Documentar.</span><span>Prevenir.</span></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const selected = Number(new URLSearchParams(location.search).get('scene') || 1);
+    document.querySelectorAll('.scene').forEach(scene => {
+      scene.hidden = Number(scene.dataset.scene) !== selected;
+    });
+  </script>
+</body>
+</html>
