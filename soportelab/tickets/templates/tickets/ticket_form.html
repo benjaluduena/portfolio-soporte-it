@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Editar {{ object.code }}{% else %}Nuevo ticket{% endif %} · SoporteLab{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="{% url 'tickets:list' %}">Tickets</a><span>/</span><span>{% if object %}Editar {{ object.code }}{% else %}Nuevo ticket{% endif %}</span></div>
+<div class="page-header"><div><span class="eyebrow">Mesa de ayuda</span><h1>{% if object %}Editar ticket{% else %}Registrar un ticket{% endif %}</h1><p>{% if object %}Actualizá los datos generales del caso.{% else %}Contanos qué sucede con la mayor claridad posible.{% endif %}</p></div></div>
+<form method="post" enctype="multipart/form-data" class="form-layout">
+    {% csrf_token %}
+    <section class="panel form-card"><div class="panel-head"><div><h2>Datos del caso</h2><p>Los campos marcados con * son obligatorios.</p></div></div>
+        {% if form.non_field_errors %}<div class="alert alert-error">{{ form.non_field_errors }}</div>{% endif %}
+        <div class="form-grid">
+        {% for field in form %}
+            <div class="field {% if field.name == 'title' or field.name == 'description' or field.name == 'asset' %}full-width{% endif %} {% if field.errors %}has-error{% endif %}">
+                <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %} *{% endif %}</label>
+                {{ field }}
+                {% if field.help_text %}<small class="help-text">{{ field.help_text }}</small>{% endif %}
+                {% for error in field.errors %}<small class="field-error">{{ error }}</small>{% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+    <aside class="form-aside"><div class="tip-card"><span>ⓘ</span><div><strong>Un buen reporte acelera la solución</strong><p>Indicá qué esperabas que ocurriera, qué sucedió y desde cuándo.</p></div></div><div class="form-actions"><a class="button button-ghost" href="{% if object %}{% url 'tickets:detail' object.pk %}{% else %}{% url 'tickets:list' %}{% endif %}">Cancelar</a><button class="button button-primary" type="submit">{% if object %}Guardar cambios{% else %}Crear ticket{% endif %}</button></div></aside>
+</form>
+{% endblock %}

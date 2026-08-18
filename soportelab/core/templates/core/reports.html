@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Reportes · SoporteLab{% endblock %}
+{% block content %}
+<div class="page-header"><div><span class="eyebrow">Indicadores</span><h1>Reportes</h1><p>Una lectura simple del volumen, la prioridad y el cumplimiento del SLA.</p></div><span class="demo-pill report-demo">Datos de demostración</span></div>
+
+<section class="stat-grid report-stats">
+    <article class="stat-card"><div><span>Tickets registrados</span><strong>{{ total_tickets }}</strong></div><i class="stat-icon blue">▤</i><small>Histórico completo</small></article>
+    <article class="stat-card"><div><span>Dentro del objetivo</span><strong>{% for item in sla_metrics %}{% if item.status == 'on_time' %}{{ item.total }}{% endif %}{% endfor %}</strong></div><i class="stat-icon green">✓</i><small>Tickets abiertos en plazo</small></article>
+    <article class="stat-card"><div><span>SLA cumplido</span><strong>{% for item in sla_metrics %}{% if item.status == 'met' %}{{ item.total }}{% endif %}{% endfor %}</strong></div><i class="stat-icon green">◷</i><small>Casos finalizados a tiempo</small></article>
+    <article class="stat-card"><div><span>SLA excedido</span><strong>{% for item in sla_metrics %}{% if item.status == 'breached' %}{{ item.total }}{% endif %}{% endfor %}</strong></div><i class="stat-icon red">!</i><small>Abiertos o cerrados fuera de plazo</small></article>
+</section>
+
+<div class="reports-grid">
+    <section class="panel report-panel"><div class="panel-head"><div><h2>Tickets por estado</h2><p>Distribución del flujo de atención.</p></div></div><div class="metric-list">{% for item in status_metrics %}<div><span><i class="dot dot-blue"></i>{{ item.status|title }}</span><strong>{{ item.total }}</strong></div>{% empty %}<div class="empty-inline">Sin datos para mostrar.</div>{% endfor %}</div></section>
+    <section class="panel report-panel"><div class="panel-head"><div><h2>Tickets por prioridad</h2><p>Volumen según nivel de atención.</p></div></div><div class="metric-list">{% for item in priority_metrics %}<div><span><i class="dot {% if item.priority == 'critical' %}dot-red{% elif item.priority == 'high' %}dot-amber{% else %}dot-blue{% endif %}"></i>{{ item.priority|title }}</span><strong>{{ item.total }}</strong></div>{% empty %}<div class="empty-inline">Sin datos para mostrar.</div>{% endfor %}</div></section>
+    <section class="panel report-panel report-wide"><div class="panel-head"><div><h2>Problemas por categoría</h2><p>Temas que concentran más solicitudes.</p></div></div><div class="category-metrics">{% for item in category_metrics %}<div><span>{{ item.category__name|default:'Sin categoría' }}</span><div><i style="width:{% widthratio item.total total_tickets 100 %}%"></i></div><strong>{{ item.total }}</strong></div>{% empty %}<div class="empty-inline">Sin datos para mostrar.</div>{% endfor %}</div></section>
+</div>
+<p class="report-note">Las métricas se calculan a partir del escenario ficticio cargado en SoporteLab y no representan una operación real.</p>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Ingresar · SoporteLab{% endblock %}
+{% block body_class %}login-page{% endblock %}
+{% block public_content %}
+<section class="login-layout">
+    <div class="login-context">
+        <span class="eyebrow">Entorno demostrativo</span>
+        <h1>Una mesa de ayuda pequeña, ordenada y creíble.</h1>
+        <p>Explorá tickets ficticios, activos y procedimientos de soporte desde una única cuenta de demostración.</p>
+        <ul class="check-list"><li>Seguimiento completo de incidentes</li><li>Inventario vinculado a tickets</li><li>Base de conocimiento práctica</li></ul>
+    </div>
+    <div class="auth-card">
+        <div class="auth-heading"><h2>Ingresar a SoporteLab</h2><p>Usá tus credenciales para continuar.</p></div>
+        {% if form.non_field_errors %}<div class="alert alert-error">Usuario o contraseña incorrectos. Volvé a intentarlo.</div>{% endif %}
+        <form method="post" class="form-stack">
+            {% csrf_token %}
+            <div class="field"><label for="id_username">Usuario</label><input type="text" name="username" id="id_username" value="{{ form.username.value|default:'' }}" autocomplete="username" required autofocus></div>
+            <div class="field"><label for="id_password">Contraseña</label><div class="password-field"><input type="password" name="password" id="id_password" autocomplete="current-password" required><button type="button" data-password-toggle aria-label="Mostrar contraseña">Ver</button></div></div>
+            {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+            <button class="button button-primary button-block" type="submit">Ingresar</button>
+        </form>
+        <div class="demo-credentials"><strong>Acceso de demostración</strong><p><code>admin</code> · <code>SoporteLab2026!</code></p><small>Todos los datos del entorno son ficticios.</small></div>
+    </div>
+</section>
+{% endblock %}

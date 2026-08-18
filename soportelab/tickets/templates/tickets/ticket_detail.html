@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ ticket.code }} · SoporteLab{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="{% url 'tickets:list' %}">Tickets</a><span>/</span><span>{{ ticket.code }}</span></div>
+<div class="page-header detail-header">
+    <div><div class="title-line"><span class="ticket-code">{{ ticket.code }}</span><span class="badge priority-{{ ticket.priority|lower }}">{{ ticket.get_priority_display|default:ticket.priority }}</span><span class="badge status-{{ ticket.status|lower }}">{{ ticket.get_status_display|default:ticket.status }}</span></div><h1>{{ ticket.title }}</h1><p>Creado el {{ ticket.created_at|date:'d/m/Y' }} a las {{ ticket.created_at|time:'H:i' }} por {{ ticket.requester.get_full_name|default:ticket.requester }}</p></div>
+    <div class="header-actions"><a class="button button-secondary" href="{% url 'tickets:update' ticket.pk %}">Editar</a>{% if ticket.status != 'resolved' and ticket.status != 'closed' %}<button class="button button-primary" type="button" data-dialog-open="resolution-dialog">Resolver ticket</button>{% endif %}</div>
+</div>
+
+<div class="detail-grid">
+    <div class="detail-main">
+        <section class="panel ticket-description"><div class="panel-head"><h2>Descripción</h2></div><div class="prose">{{ ticket.description|linebreaks }}</div></section>
+        <section class="panel">
+            <div class="panel-head"><div><h2>Actividad</h2><p>Historial de diagnóstico y cambios.</p></div></div>
+            <form method="post" action="{% url 'tickets:add_comment' ticket.pk %}" class="comment-form">
+                {% csrf_token %}
+                <label for="comment-body">Agregar una nota</label>
+                <textarea id="comment-body" name="body" rows="3" placeholder="Escribí una actualización clara…" required></textarea>
+                <div><label class="check-control"><input type="checkbox" name="is_internal"><span>Nota interna</span></label><button class="button button-primary" type="submit">Publicar nota</button></div>
+            </form>
+            <div class="timeline">
+            {% for event in events %}
+                <article class="timeline-item"><span class="timeline-dot">{% if event.event_type == 'comment' %}✎{% else %}↻{% endif %}</span><div class="timeline-card"><div><strong>{{ event.author.get_full_name|default:event.author|default:'Sistema' }}</strong>{% if event.is_internal %}<span class="badge neutral">Nota interna</span>{% endif %}<time>{{ event.created_at|date:'d/m/Y H:i' }}</time></div><p>{{ event.description|default:event.body|linebreaksbr }}</p></div></article>
+            {% empty %}
+                <article class="timeline-item"><span class="timeline-dot">+</span><div class="timeline-card"><div><strong>Sistema</strong><time>{{ ticket.created_at|date:'d/m/Y H:i' }}</time></div><p>Ticket registrado con prioridad {{ ticket.get_priority_display|default:ticket.priority }}.</p></div></article>
+            {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    <aside class="detail-aside">
+        <section class="panel info-panel"><h2>Información</h2><dl><div><dt>Tipo</dt><dd>{{ ticket.get_ticket_type_display|default:ticket.ticket_type }}</dd></div><div><dt>Categoría</dt><dd>{{ ticket.category|default:'Sin categoría' }}</dd></div><div><dt>Responsable</dt><dd>{{ ticket.assigned_to.get_full_name|default:'Sin asignar' }}</dd></div><div><dt>Impacto</dt><dd>{{ ticket.get_impact_display|default:ticket.impact }}</dd></div><div><dt>Urgencia</dt><dd>{{ ticket.get_urgency_display|default:ticket.urgency }}</dd></div><div><dt>Vencimiento SLA</dt><dd class="{% if ticket.is_overdue %}text-danger{% endif %}">{{ ticket.due_at|date:'d/m/Y H:i'|default:'No definido' }}</dd></div></dl></section>
+        {% if ticket.asset %}<section class="panel linked-card"><div class="panel-head"><h2>Activo afectado</h2></div><a href="{% url 'assets:detail' ticket.asset.pk %}"><span class="asset-symbol">▣</span><span><strong>{{ ticket.asset.code }}</strong><small>{{ ticket.asset.name }}</small></span><b>→</b></a></section>{% endif %}
+        {% if ticket.resolution %}<section class="panel resolution-card"><div class="panel-head"><h2>Resolución</h2></div><dl><div><dt>Causa raíz</dt><dd>{{ ticket.root_cause|default:'No especificada' }}</dd></div><div><dt>Solución aplicada</dt><dd>{{ ticket.resolution }}</dd></div></dl></section>{% endif %}
+    </aside>
+</div>
+
+<dialog id="resolution-dialog" class="modal">
+    <form method="post" action="{% url 'tickets:resolve' ticket.pk %}">
+        {% csrf_token %}<div class="modal-head"><div><h2>Resolver {{ ticket.code }}</h2><p>Documentá qué se hizo y cómo se verificó.</p></div><button type="button" data-dialog-close aria-label="Cerrar">×</button></div>
+        <div class="field"><label for="root-cause">Causa raíz <span class="optional">Opcional</span></label><input id="root-cause" name="root_cause" placeholder="Ej.: configuración local dañada"></div>
+        <div class="field"><label for="resolution">Solución aplicada</label><textarea id="resolution" name="resolution" rows="5" required placeholder="Describí la acción y el resultado de la verificación…"></textarea></div>
+        <div class="modal-actions"><button class="button button-ghost" type="button" data-dialog-close>Cancelar</button><button class="button button-primary" type="submit">Marcar como resuelto</button></div>
+    </form>
+</dialog>
+{% endblock %}

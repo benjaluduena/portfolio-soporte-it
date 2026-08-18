@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}SoporteLab · Mesa de ayuda demostrativa{% endblock %}
+{% block body_class %}public-page{% endblock %}
+{% block public_content %}
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow">Laboratorio personal de soporte IT</span>
+        <h1>Una mesa de ayuda para seguir el trabajo de principio a fin.</h1>
+        <p>SoporteLab reúne tickets, inventario y procedimientos en un entorno de práctica pensado para registrar qué ocurrió, qué se hizo y cómo se resolvió.</p>
+        <div class="hero-actions">
+            <a class="button button-primary button-large" href="{% url 'core:login' %}">Explorar la demo</a>
+            <a class="button button-ghost button-large" href="#funciones">Ver funcionalidades</a>
+        </div>
+        <p class="honesty-note"><span aria-hidden="true">ⓘ</span> Aplicación educativa con empresa, personas e incidentes ficticios.</p>
+    </div>
+    <div class="hero-preview" aria-label="Vista previa del panel">
+        <div class="preview-bar"><i></i><i></i><i></i><span>Resumen de soporte</span></div>
+        <div class="preview-body">
+            <div class="preview-stat"><small>Tickets abiertos</small><strong>8</strong><span class="trend">2 requieren atención</span></div>
+            <div class="preview-stat"><small>Dentro del SLA</small><strong>89%</strong><span>Últimos 30 días</span></div>
+            <div class="preview-list">
+                <b>Actividad reciente</b>
+                <p><span class="dot dot-red"></span> Aplicación administrativa no inicia</p>
+                <p><span class="dot dot-amber"></span> Wi-Fi inestable en planta alta</p>
+                <p><span class="dot dot-green"></span> Cuenta de usuario desbloqueada</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="feature-section" id="funciones">
+    <div class="section-heading"><span class="eyebrow">Qué incluye</span><h2>Las piezas básicas de una mesa de ayuda</h2></div>
+    <div class="feature-grid">
+        <article class="feature-card"><span class="feature-icon">▤</span><h3>Gestión de tickets</h3><p>Prioridad, responsable, SLA y una línea de tiempo clara desde el reporte hasta la solución.</p></article>
+        <article class="feature-card"><span class="feature-icon">▣</span><h3>Inventario relacionado</h3><p>Equipos y periféricos vinculados a sus incidentes para conservar el contexto técnico.</p></article>
+        <article class="feature-card"><span class="feature-icon">◇</span><h3>Conocimiento reutilizable</h3><p>Procedimientos documentados para resolver problemas frecuentes y saber cuándo escalar.</p></article>
+    </div>
+</section>
+
+<section class="project-note">
+    <div><span class="eyebrow">Sobre el proyecto</span><h2>Un entorno de práctica, no un caso comercial.</h2></div>
+    <p>SoporteLab no representa un producto implementado para un cliente. Fue desarrollado como proyecto personal con Django, SQLite y una interfaz responsive propia, usando únicamente datos de demostración.</p>
+</section>
+{% endblock %}

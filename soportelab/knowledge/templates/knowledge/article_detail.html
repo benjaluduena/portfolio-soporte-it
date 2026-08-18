@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} · SoporteLab{% endblock %}
+{% block content %}
+<div class="breadcrumb"><a href="{% url 'knowledge:list' %}">Conocimiento</a><span>/</span><a href="{% url 'knowledge:list' %}?category={{ article.category.pk }}">{{ article.category }}</a><span>/</span><span>Artículo</span></div>
+<div class="article-layout">
+    <article class="panel article-detail">
+        <header><div><span class="article-category">{{ article.category }}</span>{% if article.is_featured %}<span class="badge neutral">Destacado</span>{% endif %}</div><h1>{{ article.title }}</h1><p class="article-lead">{{ article.summary|default:article.objective }}</p><div class="article-meta"><span>Última revisión: {{ article.updated_at|date:'d/m/Y' }}</span><span>Por {{ article.author.get_full_name|default:article.author|default:'Equipo de soporte' }}</span></div></header>
+        {% if article.symptoms %}<section><h2>Señales o síntomas</h2><div class="prose">{{ article.symptoms|linebreaks }}</div></section>{% endif %}
+        {% if article.requirements %}<section class="callout"><span>Antes de comenzar</span><div class="prose">{{ article.requirements|linebreaks }}</div></section>{% endif %}
+        <section><h2>Procedimiento</h2><div class="prose procedure-content">{{ article.procedure|linebreaks }}</div></section>
+        {% if article.verification %}<section><h2>Cómo verificar la solución</h2><div class="prose">{{ article.verification|linebreaks }}</div></section>{% endif %}
+        {% if article.escalation %}<section class="escalation"><h2>Cuándo escalar</h2><div class="prose">{{ article.escalation|linebreaks }}</div></section>{% endif %}
+        <footer class="article-feedback"><div><strong>¿Te resultó útil este procedimiento?</strong><small>La respuesta es solo demostrativa.</small></div><div><button type="button" class="button button-secondary" data-feedback>👍 Sí</button><button type="button" class="button button-ghost" data-feedback>👎 No</button></div></footer>
+    </article>
+    <aside class="article-aside"><div class="panel"><h2>En este artículo</h2><nav class="toc">{% if article.symptoms %}<a href="#">Señales o síntomas</a>{% endif %}<a href="#">Procedimiento</a>{% if article.verification %}<a href="#">Verificación</a>{% endif %}{% if article.escalation %}<a href="#">Cuándo escalar</a>{% endif %}</nav></div>{% if user.is_staff %}<a class="button button-secondary button-block" href="{% url 'knowledge:update' article.pk %}">Editar artículo</a>{% endif %}<div class="tip-card"><span>ⓘ</span><div><strong>Contenido educativo</strong><p>Este procedimiento pertenece a un escenario ficticio de soporte.</p></div></div></aside>
+</div>
+{% endblock %}

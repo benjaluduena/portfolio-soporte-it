@@ -1,0 +1,73 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="SoporteLab, entorno demostrativo de gestión de soporte IT.">
+    <title>{% block title %}SoporteLab{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{% if user.is_authenticated %}
+<div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+        <a class="brand" href="{% url 'core:dashboard' %}" aria-label="Ir al resumen">
+            <span class="brand-mark" aria-hidden="true">SL</span>
+            <span><strong>Soporte</strong>Lab</span>
+        </a>
+        <nav class="main-nav" aria-label="Navegación principal">
+            <a href="{% url 'core:dashboard' %}" class="nav-link {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'dashboard' %}is-active{% endif %}"><span aria-hidden="true">01</span> Resumen</a>
+            <a href="{% url 'tickets:list' %}" class="nav-link {% if request.resolver_match.namespace == 'tickets' %}is-active{% endif %}"><span aria-hidden="true">02</span> Tickets</a>
+            <a href="{% url 'assets:list' %}" class="nav-link {% if request.resolver_match.namespace == 'assets' %}is-active{% endif %}"><span aria-hidden="true">03</span> Activos</a>
+            <a href="{% url 'knowledge:list' %}" class="nav-link {% if request.resolver_match.namespace == 'knowledge' %}is-active{% endif %}"><span aria-hidden="true">04</span> Conocimiento</a>
+            <a href="{% url 'core:reports' %}" class="nav-link {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'reports' %}is-active{% endif %}"><span aria-hidden="true">05</span> Reportes</a>
+        </nav>
+        <div class="sidebar-foot">
+            <span class="demo-pill">Entorno demo</span>
+            <p>Datos y organización ficticios.</p>
+        </div>
+    </aside>
+
+    <div class="app-main">
+        <header class="topbar">
+            <button class="icon-button menu-toggle" type="button" data-sidebar-toggle aria-label="Abrir menú" aria-expanded="false">☰</button>
+            <form class="global-search" action="{% url 'tickets:list' %}" method="get" role="search">
+                <span aria-hidden="true">⌕</span>
+                <label class="sr-only" for="global-search">Buscar tickets</label>
+                <input id="global-search" name="q" type="search" placeholder="Buscar por ID, asunto o usuario…" value="{{ request.GET.q|default:'' }}">
+            </form>
+            <a class="button button-primary topbar-create" href="{% url 'tickets:create' %}">+ Nuevo ticket</a>
+            <div class="user-menu">
+                <span class="avatar">{{ user.first_name|default:user.username|slice:':1'|upper }}</span>
+                <span class="user-copy"><strong>{{ user.get_full_name|default:user.username }}</strong><small>Soporte IT</small></span>
+                <form action="{% url 'core:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="text-button" type="submit">Salir</button>
+                </form>
+            </div>
+        </header>
+
+        <main class="page-content" id="main-content">
+            {% if messages %}
+            <div class="messages" aria-live="polite">
+                {% for message in messages %}<div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}<button type="button" data-dismiss aria-label="Cerrar">×</button></div>{% endfor %}
+            </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+<div class="sidebar-scrim" data-sidebar-toggle></div>
+{% else %}
+<header class="public-header">
+    <a class="brand" href="{% url 'core:landing' %}"><span class="brand-mark" aria-hidden="true">SL</span><span><strong>Soporte</strong>Lab</span></a>
+    <a class="button button-secondary" href="{% url 'core:login' %}">Ingresar a la demo</a>
+</header>
+<main id="main-content">{% block public_content %}{% endblock %}</main>
+{% endif %}
+<script src="{% static 'core/js/app.js' %}" defer></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Resumen · SoporteLab{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div><span class="eyebrow">Mesa de ayuda</span><h1>Panel de soporte</h1><p>Prioridades, vencimientos y actividad reciente.</p></div>
+    <a class="button button-primary" href="{% url 'tickets:create' %}">+ Registrar incidente</a>
+</div>
+
+<section class="stat-grid" aria-label="Indicadores principales">
+    <article class="stat-card"><div><span>Tickets abiertos</span><strong>{{ stats.open|default:'8' }}</strong></div><i class="stat-icon blue">▤</i><small><b>{{ stats.new|default:'2' }} nuevos</b> desde ayer</small></article>
+    <article class="stat-card"><div><span>Prioridad crítica</span><strong>{{ stats.critical|default:'1' }}</strong></div><i class="stat-icon red">!</i><small>Requiere atención inmediata</small></article>
+    <article class="stat-card"><div><span>Resueltos este mes</span><strong>{{ stats.resolved|default:'10' }}</strong></div><i class="stat-icon green">✓</i><small><b>89%</b> dentro del SLA</small></article>
+    <article class="stat-card"><div><span>Tiempo medio</span><strong>{{ stats.avg_resolution|default:'5 h 42 min' }}</strong></div><i class="stat-icon amber">◷</i><small>Resolución promedio</small></article>
+</section>
+
+<div class="dashboard-grid">
+    <section class="panel span-2">
+        <div class="panel-head"><div><h2>Requieren atención</h2><p>Ordenados por prioridad y vencimiento.</p></div><a href="{% url 'tickets:list' %}">Ver todos →</a></div>
+        <div class="table-wrap">
+            <table><thead><tr><th>Ticket</th><th>Prioridad</th><th>Estado</th><th>Asignado</th><th>SLA</th></tr></thead>
+            <tbody>
+            {% for ticket in attention_tickets %}
+                <tr><td><a class="ticket-cell" href="{% url 'tickets:detail' ticket.pk %}"><strong>{{ ticket.code|default:ticket }}</strong><span>{{ ticket.title }}</span></a></td><td><span class="badge priority-{{ ticket.priority|lower }}">{{ ticket.get_priority_display|default:ticket.priority }}</span></td><td><span class="badge status-{{ ticket.status|lower }}">{{ ticket.get_status_display|default:ticket.status }}</span></td><td>{{ ticket.assigned_to.get_full_name|default:'Sin asignar' }}</td><td>{% if ticket.is_overdue %}<span class="text-danger">Vencido</span>{% else %}{{ ticket.due_at|timeuntil|default:'4 h' }}{% endif %}</td></tr>
+            {% empty %}
+                <tr><td><a class="ticket-cell" href="#"><strong>INC-010</strong><span>Aplicación administrativa no inicia</span></a></td><td><span class="badge priority-critical">Crítica</span></td><td><span class="badge status-analysis">En análisis</span></td><td>Camila Torres</td><td><span class="text-danger">Vencido</span></td></tr>
+                <tr><td><a class="ticket-cell" href="#"><strong>INC-006</strong><span>Wi-Fi inestable en planta alta</span></a></td><td><span class="badge priority-high">Alta</span></td><td><span class="badge status-analysis">En análisis</span></td><td>Camila Torres</td><td>1 h 20 min</td></tr>
+                <tr><td><a class="ticket-cell" href="#"><strong>SOL-016</strong><span>Acceso a carpeta de Finanzas</span></a></td><td><span class="badge priority-high">Alta</span></td><td><span class="badge status-waiting">Esperando aprobación</span></td><td>Camila Torres</td><td>3 h 45 min</td></tr>
+            {% endfor %}
+            </tbody></table>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-head"><div><h2>Tickets por estado</h2><p>Distribución actual.</p></div></div>
+        <div class="donut-wrap"><div class="donut" role="img" aria-label="8 abiertos y 10 finalizados"><span><strong>{{ stats.total|default:'18' }}</strong><small>Total</small></span></div></div>
+        <div class="legend"><span><i class="dot dot-blue"></i>Abiertos <b>{{ stats.open|default:'8' }}</b></span><span><i class="dot dot-green"></i>Finalizados <b>{{ stats.closed|default:'10' }}</b></span></div>
+    </section>
+
+    <section class="panel span-2">
+        <div class="panel-head"><div><h2>Actividad reciente</h2><p>Últimos movimientos registrados.</p></div></div>
+        <div class="activity-list">
+            {% for event in recent_activity %}<article><span class="activity-icon">{{ event.icon|default:'✓' }}</span><div><p>{{ event.description }}</p><small>{{ event.created_at|timesince }} atrás · {{ event.user.get_full_name|default:event.user }}</small></div></article>
+            {% empty %}<article><span class="activity-icon">✓</span><div><p>Se resolvió <a href="#">INC-003 · Impresora sin conexión</a></p><small>Hace 24 minutos · Camila Torres</small></div></article><article><span class="activity-icon">↻</span><div><p>INC-006 cambió a <b>En análisis</b></p><small>Hace 1 hora · Camila Torres</small></div></article><article><span class="activity-icon">+</span><div><p>Se registró SOL-018 · Reemplazo de mouse</p><small>Hace 2 horas · Martina López</small></div></article>{% endfor %}
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-head"><div><h2>Casos por categoría</h2><p>Últimos 30 días.</p></div></div>
+        <div class="bar-list"><div><span>Hardware <b>6</b></span><i><u style="width:86%"></u></i></div><div><span>Red <b>5</b></span><i><u style="width:71%"></u></i></div><div><span>Impresión <b>4</b></span><i><u style="width:57%"></u></i></div><div><span>Accesos <b>3</b></span><i><u style="width:43%"></u></i></div></div>
+    </section>
+</div>
+{% endblock %}

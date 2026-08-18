@@ -1,0 +1,2 @@
+/* Punto de entrada público; la implementación vive bajo el namespace de core. */
+@import url("../core/css/app.css");

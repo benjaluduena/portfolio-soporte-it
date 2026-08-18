@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Tickets · SoporteLab{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div><span class="eyebrow">Mesa de ayuda</span><h1>Tickets</h1><p>Consultá, filtrá y seguí cada solicitud.</p></div>
+    <a class="button button-primary" href="{% url 'tickets:create' %}">+ Nuevo ticket</a>
+</div>
+
+<section class="panel filter-panel">
+    <form method="get" class="filter-form">
+        <div class="field filter-search"><label for="ticket-search">Buscar</label><input id="ticket-search" type="search" name="q" value="{{ request.GET.q|default:'' }}" placeholder="ID, asunto o solicitante"></div>
+        <div class="field"><label for="status">Estado</label><select id="status" name="status"><option value="">Todos</option><option value="open" {% if request.GET.status == 'open' %}selected{% endif %}>Abierto</option><option value="assigned" {% if request.GET.status == 'assigned' %}selected{% endif %}>Asignado</option><option value="in_progress" {% if request.GET.status == 'in_progress' %}selected{% endif %}>En progreso</option><option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pendiente</option><option value="resolved" {% if request.GET.status == 'resolved' %}selected{% endif %}>Resuelto</option><option value="closed" {% if request.GET.status == 'closed' %}selected{% endif %}>Cerrado</option></select></div>
+        <div class="field"><label for="priority">Prioridad</label><select id="priority" name="priority"><option value="">Todas</option><option value="critical" {% if request.GET.priority == 'critical' %}selected{% endif %}>Crítica</option><option value="high" {% if request.GET.priority == 'high' %}selected{% endif %}>Alta</option><option value="medium" {% if request.GET.priority == 'medium' %}selected{% endif %}>Media</option><option value="low" {% if request.GET.priority == 'low' %}selected{% endif %}>Baja</option></select></div>
+        <button class="button button-secondary filter-submit" type="submit">Aplicar</button>
+        {% if request.GET %}<a class="text-link filter-clear" href="{% url 'tickets:list' %}">Limpiar</a>{% endif %}
+    </form>
+</section>
+
+<section class="panel">
+    <div class="panel-head list-head"><div><h2>Todos los tickets</h2><p>{{ page_obj.paginator.count }} resultados</p></div></div>
+    <div class="table-wrap">
+        <table class="data-table"><thead><tr><th>ID y asunto</th><th>Solicitante</th><th>Prioridad</th><th>Estado</th><th>Responsable</th><th>Actualizado</th><th><span class="sr-only">Acciones</span></th></tr></thead>
+        <tbody>
+        {% for ticket in tickets %}
+        <tr>
+            <td><a class="ticket-cell" href="{% url 'tickets:detail' ticket.pk %}"><strong>{{ ticket.code }}</strong><span>{{ ticket.title }}</span></a><small class="mobile-meta">{{ ticket.requester.get_full_name|default:ticket.requester }}</small></td>
+            <td>{{ ticket.requester.get_full_name|default:ticket.requester }}</td>
+            <td><span class="badge priority-{{ ticket.priority|lower }}">{{ ticket.get_priority_display|default:ticket.priority }}</span></td>
+            <td><span class="badge status-{{ ticket.status|lower }}">{{ ticket.get_status_display|default:ticket.status }}</span></td>
+            <td>{{ ticket.assigned_to.get_full_name|default:'Sin asignar' }}</td>
+            <td><time datetime="{{ ticket.updated_at|date:'c' }}">{{ ticket.updated_at|date:'d/m/Y H:i' }}</time></td>
+            <td><a class="row-action" href="{% url 'tickets:detail' ticket.pk %}" aria-label="Ver {{ ticket.code }}">→</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7"><div class="empty-state"><span>⌕</span><h3>No encontramos tickets</h3><p>Probá cambiar o limpiar los filtros aplicados.</p><a href="{% url 'tickets:list' %}" class="button button-secondary">Limpiar filtros</a></div></td></tr>
+        {% endfor %}
+        </tbody></table>
+    </div>
+    {% if is_paginated %}<nav class="pagination" aria-label="Paginación"><span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span><div>{% if page_obj.has_previous %}<a class="button button-secondary" href="?page={{ page_obj.previous_page_number }}">Anterior</a>{% endif %}{% if page_obj.has_next %}<a class="button button-secondary" href="?page={{ page_obj.next_page_number }}">Siguiente</a>{% endif %}</div></nav>{% endif %}
+</section>
+{% endblock %}
