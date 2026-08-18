@@ -498,6 +498,474 @@ h3 {
 .final-statement { position: relative; z-index: 2; display: flex; justify-content: space-between; margin-bottom: 22px; color: #9fb0a9; font-size: clamp(19px, 3vw, 32px); font-weight: 800; letter-spacing: -.03em; }
 .final-statement span:last-child { color: #62c5ad; }
 
+/* Sistema editorial minimalista
+   Replica en todo el portafolio el lenguaje visual de la lámina 03:
+   superficies continuas, divisores finos, índices visibles y acentos contenidos. */
+
+.slide:not(.slide-cover):not(.slide-contact) { background: var(--paper-soft); }
+
+.image-frame {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.image-frame figcaption {
+  border-top: 1px solid var(--line);
+  background: transparent;
+}
+
+.image-frame-dark { box-shadow: none; }
+
+/* 02 · Propuesta de valor */
+.value-grid {
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.value-card,
+.value-card-featured {
+  color: var(--ink);
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+  border-bottom: 1px solid #c5cdc8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.value-card:nth-child(2n) { border-right: 0; }
+.value-card:nth-child(n + 3) { border-bottom: 0; }
+
+.card-index {
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--green);
+}
+
+.value-card-featured .card-index { color: var(--green); }
+.value-card-featured h3 { color: var(--green-dark); }
+.value-card-featured p { color: var(--muted); }
+
+.statement {
+  padding-right: 0;
+  padding-left: 0;
+  border: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+  background: transparent;
+}
+
+/* 04 · Experiencia real */
+.slide-industrial::after { display: none; }
+
+.industrial-layout {
+  grid-template-columns: .8fr 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.context-panel {
+  padding: clamp(25px, 3.2vw, 35px);
+  color: var(--ink);
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.context-panel .small-label { color: var(--green); }
+
+.context-icon {
+  display: block;
+  width: auto;
+  height: auto;
+  margin-bottom: 34px;
+  color: #aeb8b2;
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 0;
+}
+
+.context-icon::before {
+  content: "01";
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.context-panel p { color: var(--muted); }
+
+.date-chip {
+  padding: 0 0 8px;
+  color: var(--green-dark);
+  border: 0;
+  border-bottom: 2px solid var(--green);
+}
+
+.transfer-panel { display: contents; }
+.transfer-arrow { display: none; }
+
+.transfer-column {
+  padding: clamp(25px, 3.2vw, 35px);
+  border-right: 1px solid #c5cdc8;
+}
+
+.transfer-column::before {
+  display: block;
+  margin-bottom: 34px;
+  color: #aeb8b2;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1;
+}
+
+.transfer-column:first-child::before { content: "02"; }
+.transfer-column.transfer-value::before { content: "03"; }
+
+.transfer-value { border-right: 0; }
+
+.scope-note {
+  padding-right: 0;
+  padding-left: 0;
+  border: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+  background: transparent;
+}
+
+/* 05 · Método */
+.slide-method { background: var(--paper-soft); }
+
+.method-flow {
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.method-step,
+.method-step-final {
+  color: var(--ink);
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+  border-bottom: 1px solid #c5cdc8;
+  background: transparent;
+}
+
+.method-step:nth-child(4n) { border-right: 0; }
+.method-step:nth-child(n + 5) { border-bottom: 0; }
+.method-step::after { display: none; }
+
+.method-step span {
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--green);
+}
+
+.method-step-final strong { color: var(--green-dark); }
+.method-step-final span { color: var(--green); }
+.method-step-final p { color: var(--muted); }
+
+/* 06 · Caso DNS */
+.slide-case { background: var(--paper-soft); }
+
+.priority {
+  padding: 0 0 8px;
+  border-radius: 0;
+  background: transparent;
+}
+
+.priority-critical { color: #8d2822; border-bottom: 3px solid var(--red); }
+.priority-high { color: #9a4f0b; border-bottom: 3px solid var(--orange); }
+
+.case-id {
+  padding: 0 0 9px;
+  border: 0;
+  border-bottom: 2px solid #91aaa1;
+}
+
+.case-layout {
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.diagnostic-path {
+  padding: clamp(24px, 3.2vw, 35px);
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.diagnostic-path li::before {
+  display: block;
+  width: auto;
+  height: auto;
+  color: var(--green);
+  border-radius: 0;
+  content: "0" counter(diagnostic);
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+
+.case-evidence { gap: 0; }
+
+.terminal-card {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.skill-proof {
+  padding-right: 0;
+  padding-left: 0;
+  border: 0;
+  border-top: 1px solid #c5cdc8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.skill-chips span {
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 1px solid #91aaa1;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* 07 · Caso impresora */
+.printer-story {
+  grid-template-columns: 1fr 1fr 1.15fr;
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.story-connector { display: none; }
+
+.story-stage,
+.stage-accent {
+  color: var(--ink);
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.story-stage:last-of-type { border-right: 0; }
+
+.story-icon {
+  display: block;
+  width: auto;
+  height: auto;
+  margin-bottom: 34px;
+  color: var(--green);
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 0;
+}
+
+.story-stage:nth-of-type(1) .story-icon::before,
+.story-stage:nth-of-type(2) .story-icon::before,
+.story-stage:nth-of-type(3) .story-icon::before {
+  color: #aeb8b2;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1;
+}
+
+.story-stage:nth-of-type(1) .story-icon::before { content: "01"; }
+.story-stage:nth-of-type(2) .story-icon::before { content: "02"; }
+.story-stage:nth-of-type(3) .story-icon::before { content: "03"; }
+
+.stage-accent .small-label { color: var(--green); }
+.stage-accent > p:last-child { color: var(--muted); }
+.stage-accent .story-icon { color: var(--green); border: 0; }
+
+.knowledge-result {
+  border: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+  border-radius: 0;
+  background: transparent;
+}
+
+.knowledge-icon {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  padding-bottom: 8px;
+  color: var(--green);
+  border-bottom: 3px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+}
+
+.outcome-row {
+  border-top: 1px solid #c5cdc8;
+  border-bottom: 1px solid #c5cdc8;
+}
+
+.outcome-row span {
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+  background: transparent;
+}
+
+.outcome-row span:last-child { border-right: 0; }
+
+/* 08 · Activos */
+.asset-layout {
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.asset-image {
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+}
+
+.asset-content { gap: 0; }
+
+.asset-card,
+.powershell-card {
+  color: var(--ink);
+  border: 0;
+  border-bottom: 1px solid #c5cdc8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.asset-card:last-child { border-bottom: 0; }
+.powershell-card .small-label { color: var(--green); }
+.powershell-card p:last-child { color: var(--muted); }
+
+.safety-banner {
+  padding-right: 0;
+  padding-left: 0;
+  border: 0;
+  border-top: 1px solid #caa87f;
+  border-bottom: 1px solid #caa87f;
+  background: transparent;
+}
+
+/* 09 · Documentación */
+.knowledge-layout {
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.knowledge-image {
+  border: 0;
+  border-right: 1px solid #c5cdc8;
+}
+
+.documentation-map { gap: 0; }
+
+.doc-node,
+.doc-node-accent {
+  color: var(--ink);
+  border: 0;
+  border-bottom: 1px solid #c5cdc8;
+  background: transparent;
+}
+
+.doc-node:last-child { border-bottom: 0; }
+.doc-node-accent > span { color: var(--green); }
+.doc-node-accent p { color: var(--muted); }
+.doc-node-accent p b { color: var(--green-dark); }
+
+.user-communication {
+  gap: 0;
+  border-top: 1px solid #aeb8b2;
+  border-bottom: 1px solid #aeb8b2;
+}
+
+.user-communication > .small-label { padding-right: 18px; }
+
+.user-communication > div {
+  border: 0;
+  border-left: 1px solid #c5cdc8;
+  background: transparent;
+}
+
+.user-communication > div > span {
+  display: block;
+  width: auto;
+  height: auto;
+  padding-bottom: 6px;
+  color: var(--green);
+  border-bottom: 2px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+}
+
+/* 10 · Contacto */
+.competency-grid {
+  gap: 0;
+  border-top: 1px solid #4b5953;
+  border-bottom: 1px solid #4b5953;
+}
+
+.competency-grid article {
+  border: 0;
+  border-right: 1px solid #4b5953;
+  border-bottom: 1px solid #4b5953;
+  background: transparent;
+}
+
+.competency-grid article:nth-child(2n) { border-right: 0; }
+.competency-grid article:nth-child(n + 3) { border-bottom: 0; }
+
+.contact-card {
+  padding-right: 0;
+  padding-left: 0;
+  color: #f5f7f4;
+  border-top: 1px solid #607069;
+  border-bottom: 1px solid #607069;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.portrait-monogram {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  padding-bottom: 9px;
+  color: #62c5ad;
+  border-bottom: 3px solid #62c5ad;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-display);
+}
+
+.contact-card > p { color: #aeb8b3; }
+.contact-links a,
+.contact-links > div { color: #c4cfca; }
+
+.contact-links span {
+  display: block;
+  width: auto;
+  height: auto;
+  color: #62c5ad;
+  border: 0;
+  border-radius: 0;
+}
+
+.availability {
+  padding-right: 0;
+  padding-left: 0;
+  color: #b9d6cc;
+  border: 0;
+  border-top: 1px solid #607069;
+  border-bottom: 1px solid #607069;
+  background: transparent;
+  text-align: left;
+}
+
 @media (max-width: 780px) {
   .preview-toolbar > div span, .preview-toolbar .button-primary { display: none; }
 }
