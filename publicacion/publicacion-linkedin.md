@@ -22,6 +22,8 @@ En este carrusel muestro mi forma de abordar una incidencia: **recibir, prioriza
 
 Actualmente busco oportunidades en **Soporte IT, Help Desk, Service Desk, monitoreo u operaciones IT junior**.
 
+Portafolio interactivo: <https://benjaluduena.github.io/portfolio-soporte-it/>
+
 Repositorio y documentación: <https://github.com/benjaluduena/portfolio-soporte-it>
 
 #SoporteIT #HelpDesk #ServiceDesk #Troubleshooting #PowerShell #Python #ITSupport

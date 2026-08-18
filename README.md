@@ -6,6 +6,7 @@ La pieza principal es un carrusel de diez páginas para LinkedIn. El repositorio
 
 ## Entregables listos
 
+- [Ver el portafolio interactivo](https://benjaluduena.github.io/portfolio-soporte-it/)
 - [Portafolio PDF para LinkedIn](dist/Benjamin_Luduena_Portafolio_Soporte_IT.pdf)
 - [Video demostrativo de 68 segundos](dist/Benjamin_Luduena_Demo_SoporteLab.mp4)
 - [Vista previa de las diez páginas](dist/contact-sheet.png)
@@ -76,6 +77,7 @@ Consultar [`soportelab/README.md`](soportelab/README.md) para la instalación lo
 - LinkedIn: <https://linkedin.com/in/benjamin-lud-luq>
 - GitHub: <https://github.com/benjaluduena>
 - Repositorio: <https://github.com/benjaluduena/portfolio-soporte-it>
+- Portafolio web: <https://benjaluduena.github.io/portfolio-soporte-it/>
 - Email: <benjaminludluq@gmail.com>
 
 ## Licencia

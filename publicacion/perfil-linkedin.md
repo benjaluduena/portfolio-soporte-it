@@ -26,7 +26,9 @@ Aplicación web educativa desarrollada para practicar el ciclo completo de gesti
 
 **Aclaración:** proyecto personal educativo; no representa una implementación productiva ni experiencia laboral para una empresa o cliente.
 
-Enlace: <https://github.com/benjaluduena/portfolio-soporte-it>
+Portafolio: <https://benjaluduena.github.io/portfolio-soporte-it/>
+
+Repositorio: <https://github.com/benjaluduena/portfolio-soporte-it>
 
 ## Orden recomendado de Destacados
 
